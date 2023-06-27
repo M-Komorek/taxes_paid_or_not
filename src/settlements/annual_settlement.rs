@@ -26,3 +26,24 @@ impl AnnualSettlement {
         self.billing_months.insert(month, billing_months);
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn annual_settlement_should_update_month_settlement() {
+        let mut annual_settlement = AnnualSettlement::new();
+
+        annual_settlement
+            .update_month_settlement(Month::MAY, MonthSettlement::new_settled_month(10000.0));
+
+        assert_eq!(
+            annual_settlement
+                .get_month_settlements()
+                .get(&Month::MAY)
+                .expect("Should contain MonthSettlement!"),
+            &MonthSettlement::new_settled_month(10000.0)
+        );
+    }
+}

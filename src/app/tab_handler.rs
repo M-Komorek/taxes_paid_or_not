@@ -41,7 +41,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_next_tab_should_go_to_next_tab() {
+    fn next_tab_should_go_to_next_tab() {
         let mut tab_handler = TabHandler::new(vec![
             "first".to_string(),
             "second".to_string(),
@@ -61,7 +61,7 @@ mod tests {
     }
 
     #[test]
-    fn test_previous_tab_should_go_to_previous_tab() {
+    fn previous_tab_should_go_to_previous_tab() {
         let mut tab_handler = TabHandler::new(vec![
             "first".to_string(),
             "second".to_string(),

@@ -18,7 +18,7 @@ where
     match app.get_application_mode() {
         ApplicationMode::Recovery => {
             let block = Paragraph::new(
-                "Invalid format provided, press Enter to try again.\nExpected input format: JAN:10000",
+                "Invalid format provided!\nExpected input format: JAN:10000.\nPress Enter to try again.",
             )
             .block(
                 Block::default()
@@ -26,29 +26,31 @@ where
                     .borders(Borders::ALL),
             );
 
-            let popup_layout = Layout::default()
+            let popup_vertical_layout = Layout::default()
                 .direction(Direction::Vertical)
                 .constraints(
                     [
-                        Constraint::Percentage((100 - 10) / 2),
-                        Constraint::Percentage(10),
-                        Constraint::Percentage((100 - 10) / 2),
+                        Constraint::Percentage((100 - 40) / 2),
+                        Constraint::Percentage(40),
+                        Constraint::Percentage((100 - 40) / 2),
                     ]
                     .as_ref(),
                 )
+                .margin(1)
                 .split(frame.size());
 
             let area = Layout::default()
                 .direction(Direction::Horizontal)
                 .constraints(
                     [
-                        Constraint::Percentage((100 - 20) / 2),
-                        Constraint::Percentage(20),
-                        Constraint::Percentage((100 - 20) / 2),
+                        Constraint::Percentage((100 - 60) / 2),
+                        Constraint::Percentage(60),
+                        Constraint::Percentage((100 - 60) / 2),
                     ]
                     .as_ref(),
                 )
-                .split(popup_layout[1])[1];
+                .margin(1)
+                .split(popup_vertical_layout[1])[1];
 
             frame.render_widget(Clear, area); //this clears out the background
             frame.render_widget(block, area);
@@ -162,7 +164,7 @@ fn draw_tax_table_block<B>(frame: &mut Frame<B>, app: &mut App, area: Rect, year
 where
     B: Backend,
 {
-    let header_row = Row::new(["Month", "Income", "VAT", "Income Tax", "ZUS"].iter().map(
+    let header_row = Row::new(["Month", "Income", "VAT", "Income Tax"].iter().map(
         |header_cell_text| {
             Cell::from(*header_cell_text).style(
                 Style::default()
@@ -184,7 +186,6 @@ where
                 Cell::from("---"),
                 Cell::from("---"),
                 Cell::from("---"),
-                Cell::from("---"),
             ])
             .bottom_margin(1),
             MonthSettlement::Settled(tax_return) => Row::new([
@@ -192,7 +193,6 @@ where
                 Cell::from(tax_return.income.to_string()),
                 Cell::from(tax_return.taxes.vat.to_string()),
                 Cell::from(tax_return.taxes.income_tax.to_string()),
-                Cell::from(tax_return.taxes.zus.to_string()),
             ])
             .bottom_margin(1),
         });
@@ -206,11 +206,10 @@ where
         )
         .widths(
             [
-                Constraint::Percentage(20),
-                Constraint::Percentage(20),
-                Constraint::Percentage(20),
-                Constraint::Percentage(20),
-                Constraint::Percentage(20),
+                Constraint::Percentage(25),
+                Constraint::Percentage(25),
+                Constraint::Percentage(25),
+                Constraint::Percentage(25),
             ]
             .as_ref(),
         );

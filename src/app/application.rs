@@ -31,12 +31,8 @@ impl App {
         &self.application_mode
     }
 
-    pub fn set_standard_application_mode(&mut self) {
-        self.application_mode = ApplicationMode::Standard;
-    }
-
-    pub fn set_edit_application_mode(&mut self) {
-        self.application_mode = ApplicationMode::Edit;
+    pub fn set_application_mode(&mut self, application_mode: ApplicationMode) {
+        self.application_mode = application_mode;
     }
 
     pub fn input_handler(&self) -> &InputHandler {
@@ -71,7 +67,7 @@ impl App {
                     .update_settlement(year, month, month_settlement);
 
                 self.input_handler.clear_input_value();
-                self.set_standard_application_mode();
+                self.application_mode = ApplicationMode::Standard;
             }
             Err(_) => {
                 self.input_handler.clear_input_value();

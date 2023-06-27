@@ -50,7 +50,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_parse_input_value_should_fail_on_invalid_format() {
+    fn parse_input_value_should_fail_on_invalid_format() {
         let mut input_handler = InputHandler {
             input_value: "invalid_data_format".to_string(),
         };
@@ -62,7 +62,7 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_input_value_should_fail_on_invalid_income() {
+    fn parse_input_value_should_fail_on_invalid_income() {
         let mut input_handler = InputHandler {
             input_value: "JAN:invalid".to_string(),
         };
@@ -74,7 +74,7 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_input_value_should_fail_on_invalid_month() {
+    fn parse_input_value_should_fail_on_invalid_month() {
         let mut input_handler = InputHandler {
             input_value: "invalid:10000".to_string(),
         };
@@ -86,7 +86,7 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_input_value_should_succeed_on_valid_input() {
+    fn parse_input_value_should_succeed_on_valid_input() {
         let mut input_handler = InputHandler {
             input_value: "JAN:10000".to_string(),
         };

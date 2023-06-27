@@ -51,7 +51,7 @@ where
                 ApplicationMode::Standard => match key.code {
                     KeyCode::Left => app.tab_handler_mut().previous_tab(),
                     KeyCode::Right => app.tab_handler_mut().next_tab(),
-                    KeyCode::Char('a') => app.set_edit_application_mode(),
+                    KeyCode::Char('a') => app.set_application_mode(ApplicationMode::Edit),
                     KeyCode::Char('q') => return Ok(()),
                     _ => {}
                 },
@@ -59,11 +59,11 @@ where
                     KeyCode::Char(c) => app.input_handler_mut().push_char_to_input_value(c),
                     KeyCode::Backspace => app.input_handler_mut().pop_char_from_input_value(),
                     KeyCode::Enter => app.add_settlement(),
-                    KeyCode::Esc => app.set_standard_application_mode(),
+                    KeyCode::Esc => app.set_application_mode(ApplicationMode::Standard),
                     _ => {}
                 },
                 ApplicationMode::Recovery => match key.code {
-                    KeyCode::Enter => app.set_standard_application_mode(),
+                    KeyCode::Enter => app.set_application_mode(ApplicationMode::Standard),
                     _ => {}
                 },
             }
