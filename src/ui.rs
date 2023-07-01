@@ -2,6 +2,7 @@ use crate::{
     app::{application::App, application_mode::ApplicationMode},
     settlements::month_settlement::MonthSettlement,
 };
+
 use tui::{
     backend::Backend,
     layout::{Constraint, Direction, Layout, Rect},
@@ -164,15 +165,17 @@ fn draw_tax_table_block<B>(frame: &mut Frame<B>, app: &mut App, area: Rect, year
 where
     B: Backend,
 {
-    let header_row = Row::new(["Month", "Income", "VAT", "Income Tax"].iter().map(
-        |header_cell_text| {
-            Cell::from(*header_cell_text).style(
-                Style::default()
-                    .add_modifier(Modifier::BOLD)
-                    .fg(Color::Yellow),
-            )
-        },
-    ))
+    let header_row = Row::new(
+        ["Month", "Net Income", "VAT (23%)", "Income Tax (12%)"]
+            .iter()
+            .map(|header_cell_text| {
+                Cell::from(*header_cell_text).style(
+                    Style::default()
+                        .add_modifier(Modifier::BOLD)
+                        .fg(Color::Yellow),
+                )
+            }),
+    )
     .bottom_margin(1);
 
     let rows = app
@@ -190,7 +193,7 @@ where
             .bottom_margin(1),
             MonthSettlement::Settled(tax_return) => Row::new([
                 Cell::from(month.to_string()),
-                Cell::from(tax_return.income.to_string()),
+                Cell::from(tax_return.net_income.to_string()),
                 Cell::from(tax_return.taxes.vat.to_string()),
                 Cell::from(tax_return.taxes.income_tax.to_string()),
             ])

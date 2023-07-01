@@ -1,10 +1,16 @@
-use crate::{app::App, app::ApplicationMode, ui};
+use crate::{
+    app::{App, ApplicationMode},
+    data_parser::{self, deserialize_from_json_file},
+    ui,
+};
+
+use std::io;
+
 use crossterm::{
     event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
-use std::io;
 use tui::{
     backend::{Backend, CrosstermBackend},
     Terminal,
@@ -13,7 +19,10 @@ use tui::{
 pub fn create_and_run_app() -> Result<(), io::Error> {
     let mut terminal = setup_crossterm_terminal()?;
 
-    let app = App::new(" --> Taxes Paid or Not <-- ".to_string());
+    let mut app = App::new(" --> Taxes Paid or Not <-- ".to_string());
+    app.settlement_handler_mut()
+        .update_settlements(deserialize_from_json_file()?);
+
     let app_result = run_app(&mut terminal, app);
 
     disable_raw_mode()?;
@@ -52,7 +61,11 @@ where
                     KeyCode::Left => app.tab_handler_mut().previous_tab(),
                     KeyCode::Right => app.tab_handler_mut().next_tab(),
                     KeyCode::Char('a') => app.set_application_mode(ApplicationMode::Edit),
-                    KeyCode::Char('q') => return Ok(()),
+                    KeyCode::Char('q') => {
+                        return data_parser::serialize_to_json_file(
+                            app.settlement_handler().get_settlements(),
+                        )
+                    }
                     _ => {}
                 },
                 ApplicationMode::Edit => match key.code {

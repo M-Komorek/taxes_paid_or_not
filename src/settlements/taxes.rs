@@ -1,9 +1,11 @@
 use std::ops::AddAssign;
 
+use serde::{Deserialize, Serialize};
+
 const VAT_RATE: f64 = 0.23;
 const INCOME_TAX_RATE: f64 = 0.12;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Taxes {
     pub vat: f64,
     pub income_tax: f64,

@@ -1,6 +1,8 @@
 use super::tax_return::TaxReturn;
 
-#[derive(Debug, PartialEq)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub enum MonthSettlement {
     Unsettled,
     Settled(TaxReturn),

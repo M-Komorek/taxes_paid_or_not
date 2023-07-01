@@ -1,6 +1,6 @@
-use std::collections::HashMap;
-
 use super::{annual_settlement::AnnualSettlement, Month, MonthSettlement};
+
+use std::collections::HashMap;
 
 pub struct SettlementHandler {
     year_settlements: HashMap<u32, AnnualSettlement>,
@@ -18,8 +18,18 @@ impl SettlementHandler {
         SettlementHandler { year_settlements }
     }
 
+    pub fn get_settlements(&self) -> &HashMap<u32, AnnualSettlement> {
+        &self.year_settlements
+    }
+
     pub fn get_year_settlements(&self, year: u32) -> &AnnualSettlement {
         &self.year_settlements.get(&year).unwrap()
+    }
+
+    pub fn update_settlements(&mut self, year_settlements: HashMap<u32, AnnualSettlement>) {
+        if !year_settlements.is_empty() {
+            self.year_settlements = year_settlements;
+        }
     }
 
     pub fn update_settlement(

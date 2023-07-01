@@ -1,8 +1,11 @@
-use enum_iterator::all;
-use std::collections::BTreeMap;
-
 use super::{Month, MonthSettlement};
 
+use std::collections::BTreeMap;
+
+use enum_iterator::all;
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize)]
 pub struct AnnualSettlement {
     billing_months: BTreeMap<Month, MonthSettlement>,
 }

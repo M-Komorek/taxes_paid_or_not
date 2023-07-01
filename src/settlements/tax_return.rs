@@ -1,15 +1,17 @@
 use super::taxes::Taxes;
 
-#[derive(Debug, PartialEq)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct TaxReturn {
-    pub income: f64,
+    pub net_income: f64,
     pub taxes: Taxes,
 }
 
 impl TaxReturn {
     pub fn new(income: f64) -> TaxReturn {
         TaxReturn {
-            income,
+            net_income: income,
             taxes: Taxes::new(income),
         }
     }

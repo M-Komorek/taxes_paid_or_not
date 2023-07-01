@@ -1,5 +1,6 @@
 mod app;
 mod backend;
+mod data_parser;
 mod settlements;
 mod ui;
 

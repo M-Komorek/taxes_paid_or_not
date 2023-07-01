@@ -1,5 +1,6 @@
-use super::{input_handler::InputHandler, tab_handler::TabHandler, ApplicationMode};
 use crate::settlements::SettlementHandler;
+
+use super::{input_handler::InputHandler, tab_handler::TabHandler, ApplicationMode};
 
 pub struct App {
     title: String,
@@ -53,6 +54,10 @@ impl App {
 
     pub fn settlement_handler(&self) -> &SettlementHandler {
         &self.settlements_handler
+    }
+
+    pub fn settlement_handler_mut(&mut self) -> &mut SettlementHandler {
+        &mut self.settlements_handler
     }
 
     pub fn add_settlement(&mut self) {

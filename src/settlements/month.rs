@@ -2,8 +2,9 @@ use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
 use enum_iterator::Sequence;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Sequence)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Sequence, Serialize, Deserialize)]
 #[repr(u8)]
 pub enum Month {
     JAN = 1,
